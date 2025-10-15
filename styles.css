@@ -5,6 +5,20 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* Adding smooth scroll padding to account for fixed header */
+html {
+    scroll-padding-top: 80px;
+}
+
+/* Smooth transitions for sections */
+section {
+    scroll-margin-top: 80px;
+}
+
 :root {
     --primary-color: #0066ff;
     --primary-hover: #0052cc;
@@ -64,11 +78,28 @@ body {
     color: var(--text-dark);
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s;
+    position: relative;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background-color: var(--primary-color);
+    transition: width 0.3s, left 0.3s;
 }
 
 .nav a:hover {
     color: var(--primary-color);
+}
+
+.nav a:hover::after {
+    width: 100%;
+    left: 0;
 }
 
 /* Hero Section */
@@ -680,6 +711,47 @@ body {
 
 .payment-icon {
     font-size: 1.5rem;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100px);
+}
+
+.back-to-top:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-5px);
+}
+
+/* Show back to top button on scroll */
+@media (min-width: 768px) {
+    .back-to-top {
+        opacity: 0.8;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .back-to-top:hover {
+        opacity: 1;
+    }
 }
 
 /* Responsive Design */
